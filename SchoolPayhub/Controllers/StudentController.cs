@@ -17,9 +17,37 @@ namespace SchoolPayhub.Controllers
         //
         // GET: /Student/
 
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string searchString)
         {
-            return View(db.Students.ToList());
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "Date_desc" : "Date";
+
+            var students = from s in db.Students
+                           select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                students = students.Where(s => s.LastName.ToUpper().Contains(searchString.ToUpper())
+                                        || s.FirstMidName.ToUpper().Contains(searchString.ToUpper()));
+            }
+
+            switch (sortOrder)
+            {
+                case "Name_desc":
+                    students = students.OrderByDescending(s => s.LastName);
+                    break;
+                case "Date":
+                    students = students.OrderBy(s => s.EnrollmentDate);
+                    break;
+                case "Date_desc":
+                    students = students.OrderByDescending(s => s.EnrollmentDate);
+                    break;
+                default:
+                    students = students.OrderBy(s => s.LastName);
+                    break;
+            }
+
+            return View(students.ToList());
         }
 
         //
@@ -90,7 +118,7 @@ namespace SchoolPayhub.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(
-            [Bind(Include="StudentID, LastName, FirstMidName, EnrollmentDate")]
+            [Bind(Include = "StudentID, LastName, FirstMidName, EnrollmentDate")]
             Student student)
         {
             try
@@ -115,7 +143,7 @@ namespace SchoolPayhub.Controllers
         //
         // GET: /Student/Delete/5
 
-        public ActionResult Delete(bool? saveChangesError=false, int id = 0)
+        public ActionResult Delete(bool? saveChangesError = false, int id = 0)
         {
             if (saveChangesError.GetValueOrDefault())
             {

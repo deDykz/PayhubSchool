@@ -77,6 +77,7 @@ namespace SchoolPayhub.Controllers
             }
             ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title", enrollment.CourseID);
             ViewBag.StudentID = new SelectList(db.Students, "StudentID", "LastName", enrollment.StudentID);
+            ViewBag.Grade = new SelectList(db.Enrollments, "Grade", "Grade", enrollment.Grade);
             return View(enrollment);
         }
 
@@ -95,6 +96,7 @@ namespace SchoolPayhub.Controllers
             }
             ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Title", enrollment.CourseID);
             ViewBag.StudentID = new SelectList(db.Students, "StudentID", "LastName", enrollment.StudentID);
+            ViewBag.Grade = new SelectList(db.Enrollments, "Grade", "Grade", enrollment.Grade);
             return View(enrollment);
         }
 

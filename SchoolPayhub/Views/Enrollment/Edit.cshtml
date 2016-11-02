@@ -31,6 +31,13 @@
             @Html.ValidationMessageFor(model => model.StudentID)
         </div>
 
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Grade, "Grade")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("Grade", String.Empty)
+            @Html.ValidationMessageFor(model => model.Grade)
+        </div>
         <p>
             <input type="submit" value="Save" />
         </p>

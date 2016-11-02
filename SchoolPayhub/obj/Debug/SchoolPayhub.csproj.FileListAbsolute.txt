@@ -79,3 +79,7 @@ C:\Users\Divine\documents\visual studio 2012\Projects\SchoolPayhub\SchoolPayhub\
 C:\Users\Divine\documents\visual studio 2012\Projects\SchoolPayhub\SchoolPayhub\obj\Debug\SchoolPayhub.Migrations.InitialCreate.resources
 C:\Users\Divine\documents\visual studio 2012\Projects\SchoolPayhub\SchoolPayhub\obj\Debug\SchoolPayhub.csproj.GenerateResource.Cache
 C:\Users\Divine\documents\visual studio 2012\Projects\SchoolPayhub\SchoolPayhub\obj\Debug\SchoolPayhub.csprojResolveAssemblyReference.cache
+C:\Users\Divine\documents\visual studio 2012\Projects\SchoolPayhub\SchoolPayhub\bin\PagedList.dll
+C:\Users\Divine\documents\visual studio 2012\Projects\SchoolPayhub\SchoolPayhub\bin\PagedList.Mvc.dll
+C:\Users\Divine\documents\visual studio 2012\Projects\SchoolPayhub\SchoolPayhub\bin\PagedList.xml
+C:\Users\Divine\documents\visual studio 2012\Projects\SchoolPayhub\SchoolPayhub\bin\PagedList.Mvc.xml

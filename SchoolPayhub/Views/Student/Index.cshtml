@@ -4,21 +4,30 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>List of All Students</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find by Name: @Html.TextBox("searchString")
+        <input type="submit" value="Search" />
+    </p> 
+}
+
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm})
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstMidName)
+            @Html.ActionLink("Other Names", "Index", new { sortOrder = ViewBag.NameSortParm})
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EnrollmentDate)
+            @Html.ActionLink("Date of Enrollment", "Index", new { sortOrder = ViewBag.DateSortParm})
         </th>
         <th></th>
     </tr>

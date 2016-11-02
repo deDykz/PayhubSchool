@@ -9,6 +9,7 @@
 <fieldset>
     <legend>Course</legend>
 
+    <!--
     <div class="display-label">
          @Html.DisplayNameFor(model => model.Title)
     </div>
@@ -22,6 +23,44 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.Credits)
     </div>
+    -->
+
+     <div class="display-field">
+    <table>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Title)</th>
+            <th>@Html.DisplayNameFor(model => model.Credits)</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>@Html.DisplayFor(model => model.Title)</td>
+            <td>@Html.DisplayFor(model => model.Credits)</td>
+        </tr>
+    </table>
+    </div>
+    <div class="display-label">
+        @Html.LabelFor(model => model.Enrollments)
+    </div>
+    <div class="display-field">
+        <table>
+            <tr>
+                <th>Last Name</th>
+                <th>Other Names</th>
+            </tr>
+            @foreach (var item in Model.Enrollments) 
+            {
+                 <tr>
+                     <td>
+                         @Html.DisplayFor(modelItem => item.Student.LastName)
+                     </td>
+                     <td>
+                         @Html.DisplayFor(modelItem => item.Student.FirstMidName)
+                     </td>
+                 </tr>
+            }
+        </table>
+    </div>
+
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.CourseID }) |

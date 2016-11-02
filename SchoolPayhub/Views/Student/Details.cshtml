@@ -9,6 +9,8 @@
 <fieldset>
     <legend>Student</legend>
 
+    <!--
+        /*
     <div class="display-label">
          @Html.DisplayNameFor(model => model.LastName)
     </div>
@@ -28,6 +30,23 @@
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.EnrollmentDate)
+    </div>
+        */
+    -->
+    
+    <div class="display-field">
+    <table>
+        <tr>
+            <th>Last Name</th>
+            <th>Other Names</th>
+            <th>Date Enrolled</th>
+        </tr>
+        <tr>
+            <td>@Html.DisplayFor(model => model.LastName)</td>
+            <td>@Html.DisplayFor(model => model.FirstMidName)</td>
+            <td>@Html.DisplayFor(model => model.EnrollmentDate)</td>
+        </tr>
+    </table>
     </div>
     <div class="display-label">
         @Html.LabelFor(model => model.Enrollments)
