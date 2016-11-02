@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using SchoolPayhub.Models;
 using SchoolPayhub.DAL;
+using PagedList;
 
 namespace SchoolPayhub.Controllers
 {
@@ -17,10 +18,51 @@ namespace SchoolPayhub.Controllers
         //
         // GET: /Enrollment/
 
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParam = String.IsNullOrEmpty(sortOrder) ? "Course_desc" : "";
+            ViewBag.CourseSortParam = sortOrder == "Name" ? "Name_desc" : "Name";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
             var enrollments = db.Enrollments.Include(e => e.Course).Include(e => e.Student);
-            return View(enrollments.ToList());
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                enrollments = enrollments.Where(s => s.Student.LastName.ToUpper().Contains(searchString.ToUpper())
+                    || s.Course.Title.ToUpper().Contains(searchString.ToUpper()));
+            }
+
+            switch (sortOrder)
+            {
+                case "Name_desc":
+                    enrollments = enrollments.OrderByDescending(s => s.Student.LastName);
+                    break;
+                case "Course_desc":
+                    enrollments = enrollments.OrderByDescending(s => s.Course.Title);
+                    break;
+                case "Name":
+                    enrollments = enrollments.OrderBy(s => s.Student.LastName);
+                    break;
+                default:
+                    enrollments = enrollments.OrderBy(s => s.Course.Title);
+                    break;
+            }
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+
+            return View(enrollments.ToPagedList(pageNumber, pageSize));
         }
 
         //

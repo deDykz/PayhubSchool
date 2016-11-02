@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using SchoolPayhub.Models;
 using SchoolPayhub.DAL;
+using PagedList;
 
 namespace SchoolPayhub.Controllers
 {
@@ -17,10 +18,22 @@ namespace SchoolPayhub.Controllers
         //
         // GET: /Student/
 
-        public ActionResult Index(string sortOrder, string searchString)
+        public ActionResult Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "Date_desc" : "Date";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
 
             var students = from s in db.Students
                            select s;
@@ -47,7 +60,10 @@ namespace SchoolPayhub.Controllers
                     break;
             }
 
-            return View(students.ToList());
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+
+            return View(students.ToPagedList(pageNumber, pageSize));
         }
 
         //

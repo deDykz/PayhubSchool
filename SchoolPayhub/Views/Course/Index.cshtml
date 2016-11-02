@@ -1,19 +1,22 @@
-﻿@model IEnumerable<SchoolPayhub.Models.Course>
+﻿@model PagedList.IPagedList<SchoolPayhub.Models.Course>
+@using PagedList.Mvc;
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Courses";
 }
 
-<h2>List of All Courses</h2>
+<h2>Courses</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Index", "Course", FormMethod.Get))
 {
     <p>
-        Find by Course Title: @Html.TextBox("searchString")
+        Find by Course Title: @Html.TextBox("searchString", ViewBag.CurrentFilter as string)
         <input type="submit" value="Search" />
     </p> 
 }
@@ -21,10 +24,10 @@
 <table>
     <tr>
         <th>
-            @Html.ActionLink("Course Title", "Index", new { sortOrder = ViewBag.TitleSortParm})
+            @Html.ActionLink("Course Title", "Index", new { sortOrder = ViewBag.TitleSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("Credits", "Index", new { sortOrder = ViewBag.NumSortParm})
+            @Html.ActionLink("Credits", "Index", new { sortOrder = ViewBag.NumSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
@@ -46,3 +49,8 @@
 }
 
 </table>
+<br />
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter}))
