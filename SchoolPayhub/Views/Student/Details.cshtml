@@ -72,6 +72,12 @@
     </div>
 </fieldset>
 <p>
+    @Html.ActionLink("View All Enrollments","Index","Enrollment")
+</p>
+<p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.StudentID }) |
+    @Html.ActionLink("Delete", "Delete", new { id=Model.StudentID })
+</p>
+<p>
     @Html.ActionLink("Back to List", "Index")
 </p>

@@ -59,7 +59,7 @@ namespace SchoolPayhub.Controllers
                     break;
             }
 
-            int pageSize = 5;
+            int pageSize = 8;
             int pageNumber = (page ?? 1);
 
             return View(enrollments.ToPagedList(pageNumber, pageSize));

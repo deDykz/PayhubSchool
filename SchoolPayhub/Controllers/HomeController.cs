@@ -10,21 +10,21 @@ namespace SchoolPayhub.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Welcome to Payhub University College";
+            ViewBag.Message = "Welcome";
 
             return View();
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "About Us";
+            ViewBag.Message = "";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "";
 
             return View();
         }
